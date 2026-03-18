@@ -1,69 +1,354 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Bogotá - Tourism Experience</title>
-    <!-- Vinculamos el archivo CSS para los estilos -->
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Explore Bogotá | Turismo bilingüe</title>
+    <meta name="description" content="Explora Bogotá con rutas turísticas, cultura, gastronomía y eventos comunitarios en español e inglés.">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido / Skip to content</a>
 
-<!-- 1. Banner principal -->
-<header id="header">
-    <div class="banner">
-        <!-- Foto del banner principal -->
-        <img src="images/foto_banner.png" alt="Bogotá City Banner" id="banner-img">
-        <h1>Welcome to Bogotá: Explore Local Tourism</h1>
-        <p>Your adventure starts here!</p>
-        <!-- Botón para explorar Bogotá -->
-        <button id="explore-btn">Explore Bogotá</button>
-    </div>
-</header>
+    <header class="site-header" id="top">
+        <div class="topbar container">
+            <div>
+                <p class="eyebrow" data-es="Turismo urbano y local" data-en="Urban and local tourism">Turismo urbano y local</p>
+                <a class="brand" href="#hero" aria-label="Explore Bogotá home">Explore Bogotá</a>
+            </div>
+            <div class="header-actions">
+                <label class="language-switcher" for="language-select">
+                    <span data-es="Idioma" data-en="Language">Idioma</span>
+                    <select id="language-select" aria-label="Select language">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                </label>
+                <a class="button button-secondary" href="#map-guide" data-es="Ver mapa" data-en="Open map">Ver mapa</a>
+            </div>
+        </div>
 
-<!-- 2. Menú de navegación -->
-<nav id="navbar">
-    <ul>
-        <li><a href="#routes">Rutas Turísticas</a></li>
-        <li><a href="#culture">Cultura</a></li>
-        <li><a href="#gastronomy">Gastronomía</a></li>
-        <li><a href="#events">Eventos</a></li>
-    </ul>
-</nav>
+        <nav class="main-nav container" aria-label="Main navigation">
+            <a href="#routes" data-es="Rutas Turísticas" data-en="Tourist Routes">Rutas Turísticas</a>
+            <a href="#culture" data-es="Cultura" data-en="Culture">Cultura</a>
+            <a href="#gastronomy" data-es="Gastronomía" data-en="Gastronomy">Gastronomía</a>
+            <a href="#events" data-es="Eventos Comunitarios" data-en="Community Events">Eventos Comunitarios</a>
+        </nav>
+    </header>
 
-<!-- 3. Mapa interactivo -->
-<section id="map-section">
-    <h2>Interactive Map of Bogotá</h2>
-    <!-- Aquí se insertará el mapa interactivo. Lo dejamos como un espacio vacío por ahora -->
-    <div id="map"></div>
-</section>
+    <main id="main-content">
+        <section class="hero" id="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <div class="hero-copy card-glass">
+                    <p class="eyebrow" data-es="Guía visual bilingüe de Bogotá" data-en="Bogotá bilingual visual guide">Guía visual bilingüe de Bogotá</p>
+                    <h1 data-es="Descubre Bogotá a través de rutas, cultura, sabores y eventos locales." data-en="Discover Bogotá through routes, culture, flavors, and local events.">Descubre Bogotá a través de rutas, cultura, sabores y eventos locales.</h1>
+                    <p data-es="Diseñamos una portada más moderna, accesible y orientada al recorrido del usuario con contenido en español e inglés, un sistema de navegación por mapa y bloques listos para completar con tus fotografías reales." data-en="We designed a more modern, accessible homepage focused on user journeys, with Spanish and English content, a map-based navigation system, and sections ready for your real photographs.">Diseñamos una portada más moderna, accesible y orientada al recorrido del usuario con contenido en español e inglés, un sistema de navegación por mapa y bloques listos para completar con tus fotografías reales.</p>
+                    <div class="hero-actions">
+                        <a class="button" href="#featured" data-es="Explorar Bogotá" data-en="Explore Bogotá">Explorar Bogotá</a>
+                        <a class="button button-secondary" href="#map-guide" data-es="Ir al mapa interactivo" data-en="Go to interactive map">Ir al mapa interactivo</a>
+                    </div>
+                </div>
+                <div class="hero-visual card-glass">
+                    <p class="media-label" data-es="Foto principal sugerida" data-en="Suggested main photo">Foto principal sugerida</p>
+                    <img src="images/hero-bogota.jpg" alt="Espacio para fotografía panorámica de Bogotá" class="hero-image">
+                    <p class="caption" data-es="Reemplaza esta imagen por una fotografía panorámica de Bogotá: Monserrate, skyline o centro histórico." data-en="Replace this image with a panoramic Bogotá photo: Monserrate, skyline, or the historic center.">Reemplaza esta imagen por una fotografía panorámica de Bogotá: Monserrate, skyline o centro histórico.</p>
+                </div>
+            </div>
+        </section>
 
-<!-- 4. Rutas Turísticas -->
-<section id="routes">
-    <h2>Rutas Turísticas en Bogotá</h2>
-    <!-- Ruta 1 -->
-    <div class="route">
-        <img src="images/foto_ruta1.jpg" alt="Centro Histórico de La Candelaria">
-        <h3>Centro Histórico de La Candelaria</h3>
-        <p>Explore the historical heart of Bogotá, with its colonial architecture and vibrant streets.</p>
-        <button>Ver en Mapa</button>
-    </div>
-    <!-- Ruta 2 -->
-    <div class="route">
-        <img src="images/foto_ruta2.jpg" alt="Parque Nacional">
-        <h3>Parque Nacional</h3>
-        <p>Enjoy a scenic walk in one of Bogotá's most beautiful parks.</p>
-        <button>Ver en Mapa</button>
-    </div>
-</section>
+        <section class="featured-strip container" id="featured">
+            <div class="section-heading compact">
+                <p class="eyebrow" data-es="Experiencias destacadas" data-en="Featured experiences">Experiencias destacadas</p>
+                <h2 data-es="Una vista rápida de lo mejor de la ciudad" data-en="A quick look at the best of the city">Una vista rápida de lo mejor de la ciudad</h2>
+            </div>
+            <div class="highlight-grid">
+                <article class="highlight-card">
+                    <img src="images/highlight-candelaria.jpg" alt="Espacio para foto destacada de La Candelaria">
+                    <div>
+                        <h3>La Candelaria</h3>
+                        <p data-es="Recorrido patrimonial entre plazas, grafiti, museos y arquitectura colonial." data-en="A heritage walk through plazas, street art, museums, and colonial architecture.">Recorrido patrimonial entre plazas, grafiti, museos y arquitectura colonial.</p>
+                    </div>
+                </article>
+                <article class="highlight-card">
+                    <img src="images/highlight-museum.jpg" alt="Espacio para foto destacada de museo o experiencia cultural">
+                    <div>
+                        <h3 data-es="Ruta cultural" data-en="Culture route">Ruta cultural</h3>
+                        <p data-es="Museos, teatros y espacios creativos para conectar con la identidad bogotana." data-en="Museums, theaters, and creative spaces to connect with Bogotá's identity.">Museos, teatros y espacios creativos para conectar con la identidad bogotana.</p>
+                    </div>
+                </article>
+                <article class="highlight-card">
+                    <img src="images/highlight-food.jpg" alt="Espacio para foto destacada gastronómica">
+                    <div>
+                        <h3 data-es="Sabores locales" data-en="Local flavors">Sabores locales</h3>
+                        <p data-es="Ajiaco, cafés especiales y mercados tradicionales en una sola ruta culinaria." data-en="Ajiaco, specialty coffee, and traditional markets in one culinary route.">Ajiaco, cafés especiales y mercados tradicionales en una sola ruta culinaria.</p>
+                    </div>
+                </article>
+                <article class="highlight-card">
+                    <img src="images/highlight-event.jpg" alt="Espacio para foto destacada de evento comunitario">
+                    <div>
+                        <h3 data-es="Agenda viva" data-en="Live agenda">Agenda viva</h3>
+                        <p data-es="Festivales, ferias y encuentros comunitarios para visitar durante todo el año." data-en="Festivals, fairs, and community gatherings to visit all year round.">Festivales, ferias y encuentros comunitarios para visitar durante todo el año.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-<!-- 5. Footer -->
-<footer id="footer">
-    <p>© 2026 Explore Bogotá. All rights reserved.</p>
-    <p>Follow us on social media!</p>
-</footer>
+        <section class="map-guide" id="map-guide">
+            <div class="container map-layout">
+                <div class="section-heading">
+                    <p class="eyebrow" data-es="Navegación basada en mapa" data-en="Map-based navigation">Navegación basada en mapa</p>
+                    <h2 data-es="Mapa interactivo para explorar rutas y experiencias" data-en="Interactive map to explore routes and experiences">Mapa interactivo para explorar rutas y experiencias</h2>
+                    <p data-es="Este bloque ya deja listo el uso de Leaflet.js con OpenStreetMap. Solo debes conservar el contenedor del mapa y actualizar las coordenadas, textos y enlaces de cada marcador según tus rutas reales. Si prefieres Google Maps, puedes reemplazar este bloque por su SDK y reutilizar la misma estructura de tarjetas y botones." data-en="This block already prepares Leaflet.js with OpenStreetMap. You only need to keep the map container and update the coordinates, texts, and links for each marker according to your real routes. If you prefer Google Maps, you can replace this block with its SDK and reuse the same card and button structure.">Este bloque ya deja listo el uso de Leaflet.js con OpenStreetMap. Solo debes conservar el contenedor del mapa y actualizar las coordenadas, textos y enlaces de cada marcador según tus rutas reales. Si prefieres Google Maps, puedes reemplazar este bloque por su SDK y reutilizar la misma estructura de tarjetas y botones.</p>
+                    <div class="api-note">
+                        <h3 data-es="Cómo usar la API / librería del mapa" data-en="How to use the map API / library">Cómo usar la API / librería del mapa</h3>
+                        <ol>
+                            <li data-es="1. Mantén incluido Leaflet desde CDN en el &lt;head&gt; y antes del cierre del &lt;body&gt;." data-en="1. Keep Leaflet included from the CDN in the &lt;head&gt; and before the closing &lt;body&gt; tag.">1. Mantén incluido Leaflet desde CDN en el &lt;head&gt; y antes del cierre del &lt;body&gt;.</li>
+                            <li data-es="2. En script.js define un arreglo con nombre, categoría, coordenadas, descripción y ancla de cada experiencia." data-en="2. In script.js define an array with name, category, coordinates, description, and anchor for each experience.">2. En script.js define un arreglo con nombre, categoría, coordenadas, descripción y ancla de cada experiencia.</li>
+                            <li data-es="3. Cada marcador abre un popup con resumen y botón para ir a la subsección correspondiente." data-en="3. Each marker opens a popup with a summary and button to jump to the matching subsection.">3. Cada marcador abre un popup con resumen y botón para ir a la subsección correspondiente.</li>
+                            <li data-es="4. Si luego quieres rutas reales paso a paso, puedes integrar Leaflet Routing Machine o migrar a Google Maps Directions API." data-en="4. If you later want real turn-by-turn routes, you can integrate Leaflet Routing Machine or migrate to Google Maps Directions API.">4. Si luego quieres rutas reales paso a paso, puedes integrar Leaflet Routing Machine o migrar a Google Maps Directions API.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="map-card">
+                    <div id="map" aria-label="Mapa interactivo de Bogotá"></div>
+                    <div class="map-legend">
+                        <span><i class="dot routes"></i><span data-es="Rutas" data-en="Routes">Rutas</span></span>
+                        <span><i class="dot culture"></i><span data-es="Cultura" data-en="Culture">Cultura</span></span>
+                        <span><i class="dot gastronomy"></i><span data-es="Gastronomía" data-en="Gastronomy">Gastronomía</span></span>
+                        <span><i class="dot events"></i><span data-es="Eventos" data-en="Events">Eventos</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Vinculamos el archivo JavaScript -->
-<script src="js/script.js"></script>
+        <section class="main-section container" id="routes">
+            <div class="section-heading">
+                <p class="eyebrow" data-es="Sección 1" data-en="Section 1">Sección 1</p>
+                <h2 data-es="Rutas Turísticas" data-en="Tourist Routes">Rutas Turísticas</h2>
+                <p data-es="Descubre recorridos para caminar, observar patrimonio y conectar con zonas verdes emblemáticas de Bogotá." data-en="Discover walks to experience heritage, public space, and iconic green areas in Bogotá.">Descubre recorridos para caminar, observar patrimonio y conectar con zonas verdes emblemáticas de Bogotá.</p>
+            </div>
+            <div class="subsection-grid">
+                <article class="experience-card" id="route-candelaria">
+                    <div class="experience-media">
+                        <span class="media-label" data-es="Archivo sugerido: images/ruta-candelaria.jpg" data-en="Suggested file: images/ruta-candelaria.jpg">Archivo sugerido: images/ruta-candelaria.jpg</span>
+                        <img src="images/ruta-candelaria.jpg" alt="Espacio para fotografía de la ruta por La Candelaria">
+                    </div>
+                    <div class="experience-content">
+                        <span class="tag" data-es="Subsección 1" data-en="Subsection 1">Subsección 1</span>
+                        <h3 data-es="Ruta 1: Centro Histórico de La Candelaria" data-en="Route 1: La Candelaria Historic Center">Ruta 1: Centro Histórico de La Candelaria</h3>
+                        <p data-es="Recorrido ideal para estudiantes y turistas interesados en historia, arte urbano y arquitectura colonial. Puede incluir horarios sugeridos de mañana o tarde, recomendaciones de calzado cómodo y tiempos estimados para cada parada." data-en="A route ideal for students and visitors interested in history, street art, and colonial architecture. It can include suggested morning or afternoon schedules, comfortable walking shoes, and estimated times for each stop.">Recorrido ideal para estudiantes y turistas interesados en historia, arte urbano y arquitectura colonial. Puede incluir horarios sugeridos de mañana o tarde, recomendaciones de calzado cómodo y tiempos estimados para cada parada.</p>
+                        <ul>
+                            <li data-es="Experiencia real 1: Plaza de Bolívar y alrededores institucionales." data-en="Real experience 1: Plaza de Bolívar and its institutional surroundings.">Experiencia real 1: Plaza de Bolívar y alrededores institucionales.</li>
+                            <li data-es="Experiencia real 2: Calle del Embudo, grafitis y oferta artesanal." data-en="Real experience 2: Calle del Embudo, murals, and artisan offerings.">Experiencia real 2: Calle del Embudo, grafitis y oferta artesanal.</li>
+                            <li data-es="Experiencia real 3: Museo Botero o Casa de Moneda como parada cultural." data-en="Real experience 3: Botero Museum or Casa de Moneda as a cultural stop.">Experiencia real 3: Museo Botero o Casa de Moneda como parada cultural.</li>
+                        </ul>
+                        <div class="experience-meta">
+                            <span data-es="Horario sugerido: 9:00 a. m. - 4:00 p. m." data-en="Suggested time: 9:00 a.m. - 4:00 p.m.">Horario sugerido: 9:00 a. m. - 4:00 p. m.</span>
+                            <span data-es="Costo: recorrido libre, museos según agenda" data-en="Cost: self-guided walk, museum fees vary">Costo: recorrido libre, museos según agenda</span>
+                        </div>
+                        <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                    </div>
+                </article>
+
+                <article class="experience-card" id="route-park">
+                    <div class="experience-media">
+                        <span class="media-label" data-es="Archivo sugerido: images/ruta-parque-nacional.jpg" data-en="Suggested file: images/ruta-parque-nacional.jpg">Archivo sugerido: images/ruta-parque-nacional.jpg</span>
+                        <img src="images/ruta-parque-nacional.jpg" alt="Espacio para fotografía del Parque Nacional y sus alrededores">
+                    </div>
+                    <div class="experience-content">
+                        <span class="tag" data-es="Subsección 2" data-en="Subsection 2">Subsección 2</span>
+                        <h3 data-es="Ruta 2: Parque Nacional y corredor cultural" data-en="Route 2: National Park and cultural corridor">Ruta 2: Parque Nacional y corredor cultural</h3>
+                        <p data-es="Pensada para combinar naturaleza, actividad física suave y conexión con espacios culturales cercanos. Sirve para un recorrido de media jornada con pausas para fotografía y descanso." data-en="Designed to combine nature, light physical activity, and nearby cultural venues. It works as a half-day route with breaks for photography and rest.">Pensada para combinar naturaleza, actividad física suave y conexión con espacios culturales cercanos. Sirve para un recorrido de media jornada con pausas para fotografía y descanso.</p>
+                        <ul>
+                            <li data-es="Experiencia real 1: Caminata por senderos y zonas arboladas del parque." data-en="Real experience 1: Walk through the park's trails and tree-lined areas.">Experiencia real 1: Caminata por senderos y zonas arboladas del parque.</li>
+                            <li data-es="Experiencia real 2: Vista del corredor de la carrera Séptima y su vida urbana." data-en="Real experience 2: Views of the Carrera Séptima corridor and its urban life.">Experiencia real 2: Vista del corredor de la carrera Séptima y su vida urbana.</li>
+                            <li data-es="Experiencia real 3: Parada en cafés o espacios culturales de Chapinero cercano." data-en="Real experience 3: Stop at nearby cafés or cultural spaces in Chapinero.">Experiencia real 3: Parada en cafés o espacios culturales de Chapinero cercano.</li>
+                        </ul>
+                        <div class="experience-meta">
+                            <span data-es="Horario sugerido: 7:00 a. m. - 1:00 p. m." data-en="Suggested time: 7:00 a.m. - 1:00 p.m.">Horario sugerido: 7:00 a. m. - 1:00 p. m.</span>
+                            <span data-es="Consejo: llevar agua, bloqueador y ropa cómoda" data-en="Tip: bring water, sunscreen, and comfortable clothes">Consejo: llevar agua, bloqueador y ropa cómoda</span>
+                        </div>
+                        <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="main-section alt-section" id="culture">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow" data-es="Sección 2" data-en="Section 2">Sección 2</p>
+                    <h2 data-es="Cultura" data-en="Culture">Cultura</h2>
+                    <p data-es="Explora museos, corredores artísticos y escenarios donde se vive el patrimonio material e inmaterial de la ciudad." data-en="Explore museums, artistic corridors, and venues where the city's tangible and intangible heritage comes alive.">Explora museos, corredores artísticos y escenarios donde se vive el patrimonio material e inmaterial de la ciudad.</p>
+                </div>
+                <div class="subsection-grid">
+                    <article class="experience-card" id="culture-museums">
+                        <div class="experience-media">
+                            <span class="media-label" data-es="Archivo sugerido: images/cultura-museos.jpg" data-en="Suggested file: images/cultura-museos.jpg">Archivo sugerido: images/cultura-museos.jpg</span>
+                            <img src="images/cultura-museos.jpg" alt="Espacio para fotografía de museos de Bogotá">
+                        </div>
+                        <div class="experience-content">
+                            <span class="tag" data-es="Subsección 1" data-en="Subsection 1">Subsección 1</span>
+                            <h3 data-es="Museos y memoria de Bogotá" data-en="Museums and memory in Bogotá">Museos y memoria de Bogotá</h3>
+                            <p data-es="Bloque pensado para presentar un circuito de museos con enfoque educativo. Puedes ampliar con tarifas actualizadas, días de entrada libre y recomendaciones de duración por visita." data-en="A block designed to showcase an educational museum circuit. You can extend it with updated fees, free-entry days, and suggested visit duration.">Bloque pensado para presentar un circuito de museos con enfoque educativo. Puedes ampliar con tarifas actualizadas, días de entrada libre y recomendaciones de duración por visita.</p>
+                            <ul>
+                                <li data-es="Experiencia real 1: Museo del Oro y su colección prehispánica." data-en="Real experience 1: Gold Museum and its pre-Hispanic collection.">Experiencia real 1: Museo del Oro y su colección prehispánica.</li>
+                                <li data-es="Experiencia real 2: Museo Botero y arte internacional en La Candelaria." data-en="Real experience 2: Botero Museum and international art in La Candelaria.">Experiencia real 2: Museo Botero y arte internacional en La Candelaria.</li>
+                                <li data-es="Experiencia real 3: Centro Nacional de las Artes o sala cultural según agenda." data-en="Real experience 3: National Arts Center or another cultural hall depending on schedule.">Experiencia real 3: Centro Nacional de las Artes o sala cultural según agenda.</li>
+                            </ul>
+                            <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" id="culture-urban">
+                        <div class="experience-media">
+                            <span class="media-label" data-es="Archivo sugerido: images/cultura-urbana.jpg" data-en="Suggested file: images/cultura-urbana.jpg">Archivo sugerido: images/cultura-urbana.jpg</span>
+                            <img src="images/cultura-urbana.jpg" alt="Espacio para fotografía de callejón, teatro o arte urbano">
+                        </div>
+                        <div class="experience-content">
+                            <span class="tag" data-es="Subsección 2" data-en="Subsection 2">Subsección 2</span>
+                            <h3 data-es="Arte urbano, teatro y espacios creativos" data-en="Urban art, theater, and creative spaces">Arte urbano, teatro y espacios creativos</h3>
+                            <p data-es="Esta subsección sirve para mostrar el lado contemporáneo de la ciudad. Puedes usarla para documentar recorridos guiados de grafiti, funciones escénicas o visitas a centros culturales comunitarios." data-en="This subsection highlights the contemporary side of the city. You can use it to document graffiti tours, stage performances, or visits to community cultural centers.">Esta subsección sirve para mostrar el lado contemporáneo de la ciudad. Puedes usarla para documentar recorridos guiados de grafiti, funciones escénicas o visitas a centros culturales comunitarios.</p>
+                            <ul>
+                                <li data-es="Experiencia real 1: Graffiti tour por La Candelaria y centro internacional." data-en="Real experience 1: Graffiti tour in La Candelaria and the international center.">Experiencia real 1: Graffiti tour por La Candelaria y centro internacional.</li>
+                                <li data-es="Experiencia real 2: Función en el Teatro Colón o teatro independiente." data-en="Real experience 2: Performance at Teatro Colón or an independent theater.">Experiencia real 2: Función en el Teatro Colón o teatro independiente.</li>
+                                <li data-es="Experiencia real 3: Recorrido por centros culturales de barrio y ferias artísticas." data-en="Real experience 3: Walk through neighborhood cultural centers and art fairs.">Experiencia real 3: Recorrido por centros culturales de barrio y ferias artísticas.</li>
+                            </ul>
+                            <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-section container" id="gastronomy">
+            <div class="section-heading">
+                <p class="eyebrow" data-es="Sección 3" data-en="Section 3">Sección 3</p>
+                <h2 data-es="Gastronomía" data-en="Gastronomy">Gastronomía</h2>
+                <p data-es="Presenta sabores tradicionales y propuestas contemporáneas con espacios listos para añadir fotos, precios y recomendaciones reales." data-en="Showcase traditional flavors and contemporary proposals with placeholders ready for real photos, prices, and recommendations.">Presenta sabores tradicionales y propuestas contemporáneas con espacios listos para añadir fotos, precios y recomendaciones reales.</p>
+            </div>
+            <div class="subsection-grid">
+                <article class="experience-card" id="food-traditional">
+                    <div class="experience-media">
+                        <span class="media-label" data-es="Archivo sugerido: images/gastronomia-tipica.jpg" data-en="Suggested file: images/gastronomia-tipica.jpg">Archivo sugerido: images/gastronomia-tipica.jpg</span>
+                        <img src="images/gastronomia-tipica.jpg" alt="Espacio para fotografía de plato típico bogotano">
+                    </div>
+                    <div class="experience-content">
+                        <span class="tag" data-es="Subsección 1" data-en="Subsection 1">Subsección 1</span>
+                        <h3 data-es="Sabores típicos de Bogotá" data-en="Traditional Bogotá flavors">Sabores típicos de Bogotá</h3>
+                        <p data-es="Ideal para describir platos insignia, puntos de venta recomendados y contexto cultural de la cocina local. Puedes completar con precios promedio, horarios y nivel de afluencia." data-en="Ideal for describing signature dishes, recommended spots, and the cultural context of local cuisine. You can complete it with average prices, opening times, and demand levels.">Ideal para describir platos insignia, puntos de venta recomendados y contexto cultural de la cocina local. Puedes completar con precios promedio, horarios y nivel de afluencia.</p>
+                        <ul>
+                            <li data-es="Experiencia real 1: Ajiaco santafereño en restaurantes tradicionales." data-en="Real experience 1: Ajiaco santafereño in traditional restaurants.">Experiencia real 1: Ajiaco santafereño en restaurantes tradicionales.</li>
+                            <li data-es="Experiencia real 2: Chocolate con queso y onces bogotanas." data-en="Real experience 2: Hot chocolate with cheese and Bogotá-style afternoon snacks.">Experiencia real 2: Chocolate con queso y onces bogotanas.</li>
+                            <li data-es="Experiencia real 3: Visita a plazas de mercado con frutas andinas y comida casera." data-en="Real experience 3: Visit to market halls with Andean fruits and homemade food.">Experiencia real 3: Visita a plazas de mercado con frutas andinas y comida casera.</li>
+                        </ul>
+                        <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                    </div>
+                </article>
+
+                <article class="experience-card" id="food-coffee">
+                    <div class="experience-media">
+                        <span class="media-label" data-es="Archivo sugerido: images/cafes-especiales.jpg" data-en="Suggested file: images/cafes-especiales.jpg">Archivo sugerido: images/cafes-especiales.jpg</span>
+                        <img src="images/cafes-especiales.jpg" alt="Espacio para fotografía de café especial o cerveza artesanal">
+                    </div>
+                    <div class="experience-content">
+                        <span class="tag" data-es="Subsección 2" data-en="Subsection 2">Subsección 2</span>
+                        <h3 data-es="Ruta de cafés especiales y cocina creativa" data-en="Specialty coffee and creative cuisine route">Ruta de cafés especiales y cocina creativa</h3>
+                        <p data-es="Subsección pensada para Chapinero, Quinta Camacho o zonas emergentes. Aquí puedes mostrar cafeterías, panadería de autor o maridajes con cerveza artesanal." data-en="A subsection tailored for Chapinero, Quinta Camacho, or emerging districts. Here you can feature coffee shops, artisan bakeries, or craft beer pairings.">Subsección pensada para Chapinero, Quinta Camacho o zonas emergentes. Aquí puedes mostrar cafeterías, panadería de autor o maridajes con cerveza artesanal.</p>
+                        <ul>
+                            <li data-es="Experiencia real 1: Cata de café especial en tiendas de origen colombiano." data-en="Real experience 1: Specialty coffee tasting in shops featuring Colombian origins.">Experiencia real 1: Cata de café especial en tiendas de origen colombiano.</li>
+                            <li data-es="Experiencia real 2: Recorrido por panaderías o brunch locales." data-en="Real experience 2: Route through local bakeries or brunch spots.">Experiencia real 2: Recorrido por panaderías o brunch locales.</li>
+                            <li data-es="Experiencia real 3: Cerveza artesanal y gastronomía fusión en Chapinero." data-en="Real experience 3: Craft beer and fusion food in Chapinero.">Experiencia real 3: Cerveza artesanal y gastronomía fusión en Chapinero.</li>
+                        </ul>
+                        <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="main-section alt-section" id="events">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow" data-es="Sección 4" data-en="Section 4">Sección 4</p>
+                    <h2 data-es="Eventos Comunitarios" data-en="Community Events">Eventos Comunitarios</h2>
+                    <p data-es="Promueve una agenda de actividades periódicas con enfoque barrial, cultural y participativo para visitantes y residentes." data-en="Promote a schedule of recurring activities with neighborhood, cultural, and participatory appeal for visitors and residents.">Promueve una agenda de actividades periódicas con enfoque barrial, cultural y participativo para visitantes y residentes.</p>
+                </div>
+                <div class="subsection-grid">
+                    <article class="experience-card" id="events-fairs">
+                        <div class="experience-media">
+                            <span class="media-label" data-es="Archivo sugerido: images/eventos-ferias.jpg" data-en="Suggested file: images/eventos-ferias.jpg">Archivo sugerido: images/eventos-ferias.jpg</span>
+                            <img src="images/eventos-ferias.jpg" alt="Espacio para fotografía de feria del libro o festival en Bogotá">
+                        </div>
+                        <div class="experience-content">
+                            <span class="tag" data-es="Subsección 1" data-en="Subsection 1">Subsección 1</span>
+                            <h3 data-es="Ferias y festivales de ciudad" data-en="City fairs and festivals">Ferias y festivales de ciudad</h3>
+                            <p data-es="Estructura lista para incluir eventos grandes con fechas actualizables, enlaces a boletería o registro, y consejos logísticos de transporte o acceso." data-en="A structure ready to include major events with updatable dates, ticket or registration links, and transport or access tips.">Estructura lista para incluir eventos grandes con fechas actualizables, enlaces a boletería o registro, y consejos logísticos de transporte o acceso.</p>
+                            <ul>
+                                <li data-es="Experiencia real 1: Feria Internacional del Libro de Bogotá (FILBo)." data-en="Real experience 1: Bogotá International Book Fair (FILBo).">Experiencia real 1: Feria Internacional del Libro de Bogotá (FILBo).</li>
+                                <li data-es="Experiencia real 2: Festival al Parque en escenarios como Simón Bolívar." data-en="Real experience 2: Al Parque festivals at venues such as Simón Bolívar Park.">Experiencia real 2: Festival al Parque en escenarios como Simón Bolívar.</li>
+                                <li data-es="Experiencia real 3: Eventos gastronómicos, de diseño o emprendimiento local." data-en="Real experience 3: Food, design, or local entrepreneurship events.">Experiencia real 3: Eventos gastronómicos, de diseño o emprendimiento local.</li>
+                            </ul>
+                            <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" id="events-neighborhood">
+                        <div class="experience-media">
+                            <span class="media-label" data-es="Archivo sugerido: images/eventos-barriales.jpg" data-en="Suggested file: images/eventos-barriales.jpg">Archivo sugerido: images/eventos-barriales.jpg</span>
+                            <img src="images/eventos-barriales.jpg" alt="Espacio para fotografía de mercado de pulgas o evento barrial">
+                        </div>
+                        <div class="experience-content">
+                            <span class="tag" data-es="Subsección 2" data-en="Subsection 2">Subsección 2</span>
+                            <h3 data-es="Mercados, encuentros barriales y arte comunitario" data-en="Markets, neighborhood gatherings, and community art">Mercados, encuentros barriales y arte comunitario</h3>
+                            <p data-es="Subsección para destacar actividades de pequeña escala con gran valor local. Puedes añadir fechas flexibles, recomendaciones de seguridad y formas de llegar en transporte público." data-en="A subsection to highlight small-scale activities with strong local value. You can add flexible dates, safety advice, and public transport directions.">Subsección para destacar actividades de pequeña escala con gran valor local. Puedes añadir fechas flexibles, recomendaciones de seguridad y formas de llegar en transporte público.</p>
+                            <ul>
+                                <li data-es="Experiencia real 1: Mercado de pulgas de Usaquén." data-en="Real experience 1: Usaquén flea market.">Experiencia real 1: Mercado de pulgas de Usaquén.</li>
+                                <li data-es="Experiencia real 2: Ferias de diseño o arte independiente en barrios creativos." data-en="Real experience 2: Design or independent art fairs in creative districts.">Experiencia real 2: Ferias de diseño o arte independiente en barrios creativos.</li>
+                                <li data-es="Experiencia real 3: Actividades culturales en plazas, bibliotecas o parques locales." data-en="Real experience 3: Cultural activities in plazas, libraries, or local parks.">Experiencia real 3: Actividades culturales en plazas, bibliotecas o parques locales.</li>
+                            </ul>
+                            <a class="button" href="#map-guide" data-es="Ver en mapa" data-en="View on map">Ver en mapa</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <a class="brand footer-brand" href="#top">Explore Bogotá</a>
+                <p data-es="Proyecto web turístico bilingüe con navegación visual basada en mapa y estructura preparada para completar con fotografías reales." data-en="Bilingual tourism web project with map-based visual navigation and a structure ready to complete with real photographs.">Proyecto web turístico bilingüe con navegación visual basada en mapa y estructura preparada para completar con fotografías reales.</p>
+            </div>
+            <div>
+                <h3 data-es="Enlaces rápidos" data-en="Quick links">Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="#routes" data-es="Rutas Turísticas" data-en="Tourist Routes">Rutas Turísticas</a></li>
+                    <li><a href="#culture" data-es="Cultura" data-en="Culture">Cultura</a></li>
+                    <li><a href="#gastronomy" data-es="Gastronomía" data-en="Gastronomy">Gastronomía</a></li>
+                    <li><a href="#events" data-es="Eventos Comunitarios" data-en="Community Events">Eventos Comunitarios</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 data-es="Redes y contacto" data-en="Social and contact">Redes y contacto</h3>
+                <ul>
+                    <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+                    <li><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
+                    <li><a href="mailto:hola@explorebogota.com">hola@explorebogota.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 data-es="Créditos" data-en="Credits">Créditos</h3>
+                <p data-es="Mapa: Leaflet + OpenStreetMap. Fotografías: reemplazar manualmente por tus archivos propios en la carpeta images/." data-en="Map: Leaflet + OpenStreetMap. Photography: manually replace with your own files in the images/ folder.">Mapa: Leaflet + OpenStreetMap. Fotografías: reemplazar manualmente por tus archivos propios en la carpeta images/.</p>
+                <p>© 2026 Explore Bogotá.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="script.js"></script>
 </body>
 </html>
