@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Girardot - Rutas Turísticas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="routes-page">
+
+    <header>Descubre Girardot</header>
+
+    <nav class="main-navigation">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="rutas.html" class="nav-link active">Rutas Turísticas</a>
+        <a href="gastronomia.html" class="nav-link">Gastronomía</a>
+        <a href="info.html" class="nav-link">Información útil</a>
+    </nav>
+
+    <main class="content-wrapper">
+        <h2 class="section-title">Explora las Rutas de Girardot</h2>
+        
+        <div class="filter-container">
+            <button id="btn-naturaleza" class="filter-btn" onclick="toggleRoute('naturaleza')">Río y Naturaleza</button>
+            <button id="btn-historia" class="filter-btn" onclick="toggleRoute('historia')">Recorridos Históricos</button>
+        </div>
+        
+        <div class="interactive-layout">
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <aside id="info-panel">
+                <div class="panel-header">
+                    <button class="close-btn" onclick="closePanel()">×</button>
+                </div>
+                <img id="panel-img" src="" alt="Cargando...">
+                <div class="panel-body">
+                    <h3 id="panel-title"></h3>
+                    <div id="panel-desc"></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        const girardotCoords = [4.305, -74.803];
+
+        const database = {
+            'naturaleza': [
+                { lat: 4.3150, lng: -74.8120, name: 'Isla del Sol', img: 'img/rutas/isla_sol.jpg', es: 'Paseo en lancha y caminata por playas naturales del Río Magdalena.', en: 'Boat ride and hike through natural beaches of the Magdalena River.' },
+                { lat: 4.3300, lng: -74.7800, name: 'Cerro de la Cruz', img: 'img/rutas/cerro.jpg', es: 'Ruta de senderismo con la mejor vista del valle del alto Magdalena.', en: 'Hiking route with the best view of the upper Magdalena valley.' },
+                { lat: 4.2950, lng: -74.8200, name: 'Desembocadura del Río Bogotá', img: 'img/rutas/desembocadura.jpg', es: 'Observación de aves y paisaje fluvial.', en: 'Bird watching and fluvial landscape.' }
+            ],
+            'historia': [
+                { lat: 4.3025, lng: -74.8078, name: 'Puente Férreo', img: 'img/rutas/puente_ferreo.jpg', es: 'Patrimonio nacional que unía el comercio del país.', en: 'National heritage that united the country\'s commerce.' },
+                { lat: 4.3038, lng: -74.8055, name: 'Estación del Ferrocarril', img: 'img/rutas/estacion.jpg', es: 'Museo y centro cultural que relata la época dorada del tren.', en: 'Museum and cultural center telling the golden age of the train.' },
+                { lat: 4.3040, lng: -74.8010, name: 'Parque de Bolívar', img: 'img/rutas/parque.jpg', es: 'Corazón histórico rodeado de arquitectura republicana.', en: 'Historical heart surrounded by Republican architecture.' }
+            ]
+        };
+
+        const map = L.map('map').setView(girardotCoords, 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        let markerGroup = L.layerGroup().addTo(map);
+
+        function toggleRoute(type) {
+            markerGroup.clearLayers();
+            closePanel();
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active-filter'));
+            document.getElementById(`btn-${type}`).classList.add('active-filter');
+
+            database[type].forEach(item => {
+                const marker = L.marker([item.lat, item.lng]).addTo(markerGroup);
+                marker.on('click', () => openPanel(item));
+            });
+            const group = new L.featureGroup(Object.values(markerGroup._layers));
+            map.fitBounds(group.getBounds().pad(0.1));
+        }
+
+        function openPanel(data) {
+            document.getElementById('panel-img').src = data.img;
+            document.getElementById('panel-title').innerText = data.name;
+            document.getElementById('panel-desc').innerHTML = `<p><strong>ES:</strong> ${data.es}</p><p><strong>EN:</strong> ${data.en}</p>`;
+            document.getElementById('map-container').classList.add('split');
+            document.getElementById('info-panel').classList.add('open');
+            setTimeout(() => { map.invalidateSize(); }, 400);
+        }
+
+        function closePanel() {
+            document.getElementById('map-container').classList.remove('split');
+            document.getElementById('info-panel').classList.remove('open');
+            setTimeout(() => { map.invalidateSize(); }, 400);
+        }
+    </script>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3 class="footer-logo">GIRARDOT</h3>
+                <p>Ciudad de las Acacias</p>
+                <p>Corazón del Magdalena</p>
+            </div>
+            <div class="footer-column">
+                <h3>Descubre</h3>
+                <p>Naturaleza y Río</p>
+                <p>Historia Férrea</p>
+                <p>Cultura Local</p>
+            </div>
+            <div class="footer-column">
+                <h3>Información</h3>
+                <p>Guía del Viajero</p>
+                <p>Clima Tropical</p>
+                <p>Movilidad</p>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Turismo Girardot</p>
+                <p>Atención al Turista</p>
+                <p>2026</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

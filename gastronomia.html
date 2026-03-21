@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Girardot - Gastronomía</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="food-page">
+
+    <header>Descubre Girardot</header>
+
+    <nav class="main-navigation">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="rutas.html" class="nav-link">Rutas Turísticas</a>
+        <a href="gastronomia.html" class="nav-link active">Gastronomía</a>
+        <a href="info.html" class="nav-link">Información útil</a>
+    </nav>
+
+    <main class="content-wrapper">
+        <h2 class="section-title">Sabores de Girardot / Girardot Flavors</h2>
+        
+        <div class="filter-container">
+            <button id="btn-plazas" class="filter-btn" onclick="toggleFood('plazas')">Plazas de Mercado</button>
+            <button id="btn-restaurantes" class="filter-btn" onclick="toggleFood('restaurantes')">Restaurantes y Zonas</button>
+        </div>
+        
+        <div class="interactive-layout">
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <aside id="info-panel">
+                <div class="panel-header">
+                    <button class="close-btn" onclick="closePanel()">×</button>
+                </div>
+                <img id="panel-img" src="" alt="Cargando...">
+                <div class="panel-body">
+                    <h3 id="panel-title"></h3>
+                    <div id="panel-desc"></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        const girardotCoords = [4.305, -74.803];
+
+        const foodDb = {
+            'plazas': [
+                { lat: 4.3052, lng: -74.8015, name: 'Plaza de Mercado (Monumento Nacional)', img: 'img/gastronomia/plaza_girardot.jpg', es: 'Arquitectura icónica de Leopoldo Rother; frutas locales y lechona.', en: 'Iconic architecture; local fruits and traditional lechona.' },
+                { lat: 4.3011, lng: -74.8032, name: 'Plaza del Alto de la Cruz', img: 'img/gastronomia/alto_cruz.jpg', es: 'Comida típica con vista panorámica de la ciudad.', en: 'Typical food with a panoramic view of the city.' },
+                { lat: 4.3045, lng: -74.8060, name: 'Zona de Pescados (Puerto Montero)', img: 'img/gastronomia/viudo_capaz.jpg', es: 'Especialidad en Viudo de Capaz a la orilla del Río Magdalena.', en: 'Specializing in Viudo de Capaz fish by the Magdalena River.' }
+            ],
+            'restaurantes': [
+                { lat: 4.3005, lng: -74.8090, name: 'El Peñón (Restaurantes de la zona)', img: 'img/gastronomia/penon.jpg', es: 'Oferta gastronómica nacional e internacional de alto nivel.', en: 'High-level national and international gastronomic offer.' },
+                { lat: 4.3060, lng: -74.8020, name: 'Restaurante Oasis', img: 'img/gastronomia/oasis.jpg', es: 'Comida tradicional girardoteña en un ambiente fresco.', en: 'Traditional Girardot food in a fresh atmosphere.' },
+                { lat: 4.3032, lng: -74.8045, name: 'Heladerías del Camellón', img: 'img/gastronomia/helados.jpg', es: 'Famosos helados y cholados para el calor tropical.', en: 'Famous ice creams and cholados for the tropical heat.' }
+            ]
+        };
+
+        const map = L.map('map').setView(girardotCoords, 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        let markerGroup = L.layerGroup().addTo(map);
+
+        function toggleFood(type) {
+            markerGroup.clearLayers();
+            closePanel();
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active-filter'));
+            document.getElementById(`btn-${type}`).classList.add('active-filter');
+
+            foodDb[type].forEach(item => {
+                const marker = L.marker([item.lat, item.lng]).addTo(markerGroup);
+                marker.on('click', () => openPanel(item));
+            });
+            const group = new L.featureGroup(Object.values(markerGroup._layers));
+            map.fitBounds(group.getBounds().pad(0.2));
+        }
+
+        function openPanel(data) {
+            document.getElementById('panel-img').src = data.img;
+            document.getElementById('panel-title').innerText = data.name;
+            document.getElementById('panel-desc').innerHTML = `<p><strong>ES:</strong> ${data.es}</p><p><strong>EN:</strong> ${data.en}</p>`;
+            document.getElementById('map-container').classList.add('split');
+            document.getElementById('info-panel').classList.add('open');
+            setTimeout(() => { map.invalidateSize(); }, 400);
+        }
+
+        function closePanel() {
+            document.getElementById('map-container').classList.remove('split');
+            document.getElementById('info-panel').classList.remove('open');
+            setTimeout(() => { map.invalidateSize(); }, 400);
+        }
+    </script>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3 class="footer-logo">GIRARDOT</h3>
+                <p>Ciudad de las Acacias</p>
+                <p>Corazón del Magdalena</p>
+            </div>
+            <div class="footer-column">
+                <h3>Descubre</h3>
+                <p>Naturaleza y Río</p>
+                <p>Historia Férrea</p>
+                <p>Cultura Local</p>
+            </div>
+            <div class="footer-column">
+                <h3>Información</h3>
+                <p>Guía del Viajero</p>
+                <p>Clima Tropical</p>
+                <p>Movilidad</p>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Turismo Girardot</p>
+                <p>Atención al Turista</p>
+                <p>2026</p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>

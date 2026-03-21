@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Girardot - Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="home-page"> 
+
+    <header>Descubre Girardot</header>
+
+    <nav class="main-navigation">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="rutas.html" class="nav-link">Rutas Turísticas</a>
+        <a href="gastronomia.html" class="nav-link">Gastronomía</a>
+        <a href="info.html" class="nav-link">Información útil</a>
+    </nav>
+
+    <main>
+        <div class="carousel-window">
+            <div class="carousel-track" id="slider">
+                <div class="slide">
+                    <img src="img/img_banner.png" alt="Panorámica Girardot 1">
+                </div>
+                <div class="slide">
+                    <img src="img/img_banner2.png" alt="Panorámica Girardot 2">
+                </div>
+                <div class="slide">
+                    <img src="img/img_banner.png" alt="Panorámica Girardot 1 Copia">
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <section class="sub-section">
+                <h2>Bienvenida / Welcome</h2>
+                <div class="content-area">
+                    <p><strong>ES:</strong> Girardot, la Ciudad de las Acacias, es el destino turístico por excelencia a orillas del Río Magdalena.</p>
+                    <p><strong>EN:</strong> Girardot, the City of Acacias, is the quintessential tourist destination on the banks of the Magdalena River.</p>
+                </div>
+            </section>
+
+            <section class="sub-section">
+                <h2>Información General / General Information</h2>
+                <div class="info-grid">
+                    <article class="info-card">
+                        <h3>Historia / History</h3>
+                        <p>Eje fundamental del comercio fluvial y ferroviario en el centro de Colombia desde el siglo XIX.</p>
+                    </article>
+                    <article class="info-card">
+                        <h3>Datos Básicos / Basic Facts</h3>
+                        <ul>
+                            <li><strong>Población:</strong> ~110,000 hab.</li>
+                            <li><strong>Clima:</strong> 25°C - 38°C (Cálido tropical).</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Girardot</h3>
+                <p>Ciudad de las Acacias</p>
+                <p>Historia del Río Magdalena</p>
+                <p>Eventos y Cultura</p>
+            </div>
+            <div class="footer-column">
+                <h3>Descubre Girardot</h3>
+                <p>Naturaleza y Río</p>
+                <p>Gastronomía Local</p>
+                <p>Rutas Históricas</p>
+                <p>Entretenimiento</p>
+            </div>
+            <div class="footer-column">
+                <h3>Información</h3>
+                <p>Clima y Consejos</p>
+                <p>Movilidad Urbana</p>
+                <p>Guía del Viajero</p>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Bienvenido a Girardot</p>
+                <p>Turismo Sostenible</p>
+                <p>Experiencias Únicas</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Descubre Girardot - 2026
+        </div>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('slider');
+        let index = 0;
+        const totalSlides = 2; 
+
+        function moveSlide() {
+            index++;
+            slider.style.transition = "transform 1.2s ease-in-out"; 
+            slider.style.transform = `translateX(-${index * 100}vw)`;
+
+            if (index === totalSlides) {
+                setTimeout(() => {
+                    slider.style.transition = "none";
+                    index = 0;
+                    slider.style.transform = `translateX(0)`;
+                }, 1200);
+            }
+        }
+        setInterval(moveSlide, 5000);
+    </script>
+</body>
+</html>
