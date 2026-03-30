@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turismo Girardot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <nav class="top-menu" aria-label="Navegación principal">
+        <a class="active" href="#" id="menuInicio">Inicio</a>
+        <a href="#" id="menuDestinos">Destinos</a>
+        <a href="#" id="menuGastronomia">Gastronomía</a>
+        <a href="#" id="menuCultura">Cultura</a>
+      </nav>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Cambiar idioma">
+          <span id="langCurrentFlag">🇪🇸</span>
+          <span id="langCurrentLabel">ES</span>
+          <span class="lang-caret">▾</span>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button type="button" data-lang="es"><span class="lang-flag">🇪🇸</span><span>Español</span></button>
+          <button type="button" data-lang="en"><span class="lang-flag">🇺🇸</span><span>English</span></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero fullscreen con carrusel -->
+    <section class="hero" aria-label="Banner principal">
+      <div class="hero-slider" id="heroSlider">
+        <div class="hero-track" id="heroTrack">
+          <article class="hero-slide">
+            <img src="img/banner1.jpg" alt="Vista turística de Girardot 1" />
+          </article>
+          <article class="hero-slide">
+            <img src="img/banner2.jpg" alt="Vista turística de Girardot 2" />
+          </article>
+          <article class="hero-slide">
+            <img src="img/banner3.jpg" alt="Vista turística de Girardot 3" />
+          </article>
+        </div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p id="heroTagline">DESCUBRE</p>
+        <h1>GIRARDOT</h1>
+      </div>
+    </section>
+
+    <main>
+      <!-- Información general + mapa -->
+      <section class="about section-wrap" aria-labelledby="aboutTitle">
+        <div class="about-copy">
+          <h2 id="aboutTitle">UN DESTINO CON BELLEZA NATURAL E HISTORIA</h2>
+          <p id="aboutText">
+            Girardot, fundada oficialmente en el siglo XIX como punto comercial
+            estratégico, se transformó con el tiempo en uno de los destinos
+            favoritos del centro del país. Su clima cálido, con temperaturas
+            agradables durante todo el año, la convierte en un lugar ideal para
+            el descanso. Además de su oferta hotelera y recreativa, la ciudad
+            mantiene una fuerte relación con el río Magdalena, eje histórico del
+            transporte y del crecimiento económico regional, que hoy sigue siendo
+            símbolo de identidad y atractivo para quienes la visitan.
+          </p>
+          <div class="about-highlights">
+            <article class="highlight-box">
+              <h3 id="aboutHighlight1Title">Clima cálido todo el año</h3>
+              <p id="aboutHighlight1Text">Sol, piscina y actividades al aire libre en cualquier temporada.</p>
+            </article>
+            <article class="highlight-box">
+              <h3 id="aboutHighlight2Title">Destino cercano a Bogotá</h3>
+              <p id="aboutHighlight2Text">Escapada ideal para fines de semana y planes de descanso.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="about-map">
+          <div class="map-shell" role="img" aria-label="Mapa de Girardot">
+            <div id="map" class="live-map" aria-label="Mapa interactivo de Girardot"></div>
+            <button id="mapCenterBtn" class="map-center-btn" type="button">Centrar</button>
+            <div class="map-grid"></div>
+            <div class="map-river"></div>
+            <div class="map-marker">
+              <span class="pulse"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <p class="map-note">
+            .
+          </p>
+        </div>
+      </section>
+
+      <div class="experience-zone">
+        <!-- Sección interactiva de monumentos -->
+        <section
+          class="experience section-wrap"
+          id="monumentosSection"
+          aria-labelledby="monumentosTitle"
+        >
+          <h2 id="monumentosTitle" class="section-title">MONUMENTOS</h2>
+          <div class="experience-layout">
+            <div class="experience-media">
+              <img
+                id="monumentosImage"
+                src="img/monumento1.jpg"
+                alt="Monumento destacado de Girardot"
+              />
+              <button class="explore-btn" type="button" data-explore-section="monumentos">
+                <span class="explore-label">Explorar</span>
+                <span class="arrow-pill">&#8594;</span>
+              </button>
+            </div>
+            <div class="experience-list" id="monumentosList"></div>
+          </div>
+        </section>
+
+        <!-- Sección interactiva de hoteles y hospedaje -->
+        <section
+          class="experience section-wrap"
+          id="hotelesSection"
+          aria-labelledby="hotelesTitle"
+        >
+          <h2 id="hotelesTitle" class="section-title">HOTELES Y HOSPEDAJE</h2>
+          <div class="experience-layout">
+            <div class="experience-media">
+              <img id="hotelesImage" src="img/hotel1.jpg" alt="Hotel destacado de Girardot" />
+              <button class="explore-btn" type="button" data-explore-section="hoteles">
+                <span class="explore-label">Explorar</span>
+                <span class="arrow-pill">&#8594;</span>
+              </button>
+            </div>
+            <div class="experience-list" id="hotelesList"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="detail-overlay" id="detailOverlay" aria-hidden="true">
+      <aside
+        class="detail-panel"
+        id="detailPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="detailTitle"
+      >
+        <button class="detail-close" id="detailClose" type="button" aria-label="Cerrar panel">
+          &#10005;
+        </button>
+        <div class="detail-content">
+          <div class="detail-copy">
+            <p class="detail-kicker" id="detailKicker">Experiencia</p>
+            <h3 id="detailTitle">Título</h3>
+            <p class="detail-short" id="detailShort"></p>
+            <p class="detail-long" id="detailLong"></p>
+            <div class="detail-address">
+              <span>Dirección</span>
+              <strong id="detailAddress"></strong>
+            </div>
+            <a
+              id="detailMapsLink"
+              class="detail-maps-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver en Google Maps
+            </a>
+          </div>
+          <div class="detail-map-wrap">
+            <div id="detailMap" class="detail-map" aria-label="Mapa del lugar"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="destinos-overlay" id="destinosOverlay" aria-hidden="true">
+      <section class="destinos-panel" id="destinosPanel" aria-labelledby="destinosTitle">
+        <button class="destinos-close" id="destinosClose" type="button" aria-label="Cerrar destinos">
+          &#10005;
+        </button>
+        <header class="destinos-header">
+          <p class="destinos-kicker">Girardot en detalle</p>
+          <h3 id="destinosTitle">Destinos</h3>
+          <div class="destinos-tabs" id="destinosTabs">
+            <button class="destinos-tab active" type="button" data-tab="folcloricas">
+              Rutas Folclóricas
+            </button>
+            <button class="destinos-tab" type="button" data-tab="urbanas">Rutas Urbanas</button>
+          </div>
+        </header>
+        <div class="destinos-grid" id="destinosGrid"></div>
+      </section>
+
+      <div class="destino-detail-overlay" id="destinoDetailOverlay" aria-hidden="true">
+        <article class="destino-detail-card" id="destinoDetailCard" role="dialog" aria-modal="true">
+          <button
+            class="destino-detail-close"
+            id="destinoDetailClose"
+            type="button"
+            aria-label="Cerrar destino"
+          >
+            &#10005;
+          </button>
+          <div class="destino-detail-top">
+            <div class="destino-detail-image-wrap">
+              <img id="destinoDetailImage" src="" alt="" />
+              <a
+                id="destinoDetailMapsLink"
+                class="destino-detail-maps-link"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Cómo llegar
+              </a>
+            </div>
+            <div class="destino-detail-content">
+              <h4 id="destinoDetailTitle"></h4>
+              <p class="destino-detail-description" id="destinoDetailDescription"></p>
+              <div class="destino-detail-address">
+                <span>Dirección</span>
+                <strong id="destinoDetailAddress"></strong>
+              </div>
+            </div>
+          </div>
+          <div class="destino-detail-map-wrap">
+            <div id="destinoDetailMap" class="destino-detail-map"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-wrap">
+        <h3 id="footerTitle">Turismo Girardot</h3>
+        <p id="footerTagline">Experiencias auténticas para descubrir, descansar y volver.</p>
+        <nav class="footer-links" aria-label="Enlaces del pie de página">
+          <a href="#" id="footerLinkHome">Inicio</a>
+          <a href="#" id="footerLinkDestinos">Destinos</a>
+          <a href="#" id="footerLinkGastro">Gastronomía</a>
+          <a href="#" id="footerLinkCultura">Cultura</a>
+        </nav>
+        <small id="footerCopy">© 2026 Turismo Girardot. Todos los derechos reservados.</small>
+      </div>
+    </footer>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
